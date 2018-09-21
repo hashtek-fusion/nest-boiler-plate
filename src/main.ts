@@ -16,13 +16,12 @@ async function bootstrap() {
     .setDescription('REST APIs to manage an application')
     .setVersion('1.0')
     .addBearerAuth()
-    .addTag('Registration and Login')
-    .addTag('Manage Users')
+    .addTag('Manage Registration & Users')
     .addTag('Manage Notifications')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);
   // Swagger setup by providing api route
-  SwaggerModule.setup('api', app, swaggerDocument);
+  SwaggerModule.setup('api/swagger', app, swaggerDocument);
 
   await app.listen(props.server.port);
 }
