@@ -1,0 +1,20 @@
+{
+    "server": {
+        "port": 5000
+    },
+    "db": {
+      "host": "127.0.0.1",
+      "port": 3306,
+      "dbuser": "tsmean",
+      "dbpassword": "mean1234",      
+      "dbname": "ts_mean_prod",
+      "testsMayDropDb": "true"
+    },
+    "cors": {
+      "origin": ["http://localhost:4200"]
+    },
+    "token": {
+      "secret": "tsmean_prod"
+    }
+  }
+  

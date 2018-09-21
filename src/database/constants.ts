@@ -1,0 +1,1 @@
+export const DB_CONFIG_TOKEN = Symbol('DATABSE_CONFIG_TOKEN');
