@@ -1,15 +1,20 @@
+import { ApiModelProperty } from '@nestjs/swagger';
+
 export class UserDto{
+    @ApiModelProperty()
     readonly firstName: string;
+    @ApiModelProperty()
     readonly lastName: string;
+    @ApiModelProperty()
     readonly displayName?: string;
+    @ApiModelProperty()
     readonly email: string;
+    @ApiModelProperty()
     readonly password: string;
-    readonly salt: string;
+    @ApiModelProperty()
     readonly profileImageURL?: string;
+    @ApiModelProperty()
     readonly roles: string;
+    @ApiModelProperty()
     readonly status: string;
-    readonly updatedOn: Date;
-    readonly createdOn: Date;
-    readonly resetPasswordToken?: string;
-    readonly resetPasswordExpires?: Date;
 }

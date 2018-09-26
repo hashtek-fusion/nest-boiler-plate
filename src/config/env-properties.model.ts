@@ -18,4 +18,7 @@ export interface EnvProperties {
       algorithm?: string;
       expiresIn?: string;
     };
+    multer: {
+      dest: string;
+    };
   }

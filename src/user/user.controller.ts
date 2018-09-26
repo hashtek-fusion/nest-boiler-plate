@@ -14,9 +14,12 @@ import {
     Put,
     Query,
     UseInterceptors,
+    UploadedFile,
+    FileInterceptor,
+    Logger,
 } from '@nestjs/common';
 import { apiPath } from 'common/api';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile, ApiImplicitHeader } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UserDto } from 'dto/user.dto';
 
@@ -35,6 +38,7 @@ export class UserController {
         status: 400,
         description: 'Invalid Input and not able to register the user',
     })
+    @ApiImplicitHeader({name: 'X-CSRF-TOKEN', required: true})
     @Post('/register')
     async registerUser(@Body() reqBody: UserDto) {
         try {
@@ -61,6 +65,28 @@ export class UserController {
     @Post('/login')
     login(@Body() reqBody: UserDto){
 
+    }
+
+    @ApiOperation({ title: 'Registered user upload and manage profile picture' })
+    @ApiResponse({
+        status: 200,
+        description: 'Profile Picture successfully saved into system',
+        type: UserDto,
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Invalid file format or file size exceeds the limit',
+    })
+    @ApiResponse({
+        status: 500,
+        description: 'Unexpected Server error',
+    })
+    @UseInterceptors(FileInterceptor('file', {}))
+    @ApiConsumes('multipart/form-data')
+    @ApiImplicitFile({name: 'file', required: true})
+    @Post('upload/profilePicture')
+    uploadProfilePicture(@UploadedFile() file){
+        Logger.log(file.size);
     }
 
     @ApiOperation({ title: 'To retrieve all the registered users from the system' })

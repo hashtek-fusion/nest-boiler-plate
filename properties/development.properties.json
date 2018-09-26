@@ -15,6 +15,9 @@
     },
     "token": {
       "secret": "nestboilerplate"
+    },
+    "multer": {
+      "dest": "./uploads"
     }
   }
   
