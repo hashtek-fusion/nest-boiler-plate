@@ -4,7 +4,7 @@ import {SwaggerModule, DocumentBuilder} from '@nestjs/swagger';
 import {ConfigModule} from './config/config.module';
 import {EnvProperties} from './config/env-properties.model';
 import {ENV_CONFIG_TOKEN} from './config/constants';
-import { MulterModule, Logger } from '@nestjs/common';
+import { MulterModule, Logger, ValidationPipe } from '@nestjs/common';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as cookieParser from 'cookie-parser';
@@ -50,6 +50,12 @@ async function bootstrap() {
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);
   // Swagger setup by providing api route
   SwaggerModule.setup('api/swagger', app, swaggerDocument);
+
+  // Set Global validation pipe to validate all incoming requests to API end points
+  app.useGlobalPipes(new ValidationPipe({
+     transform: false,
+     disableErrorMessages: false, // In production environment may turn off this
+  }));
 
   await app.listen(props.server.port);
 }

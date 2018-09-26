@@ -22,6 +22,7 @@ import { apiPath } from 'common/api';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile, ApiImplicitHeader } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UserDto } from 'dto/user.dto';
+import { RegistrationDto } from 'dto/registration.dto';
 
 @ApiUseTags('Manage Registration & Users')
 @Controller(apiPath(1, 'users'))
@@ -32,7 +33,7 @@ export class UserController {
     @ApiResponse({
         status: 200,
         description: 'User Registered Successfully and returning user',
-        type: UserDto,
+        type: RegistrationDto,
     })
     @ApiResponse({
         status: 400,
@@ -40,7 +41,7 @@ export class UserController {
     })
     @ApiImplicitHeader({name: 'X-CSRF-TOKEN', required: true})
     @Post('/register')
-    async registerUser(@Body() reqBody: UserDto) {
+    async registerUser(@Body() reqBody: RegistrationDto) {
         try {
             return await this.userService.registerUser(reqBody);
         } catch (err) {
