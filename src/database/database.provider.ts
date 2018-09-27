@@ -1,5 +1,5 @@
 import { EnvProperties } from 'config/env-properties.model';
-import { ENV_CONFIG_TOKEN } from 'config/constants';
+import { ENV_CONFIG_TOKEN } from '../config/constants';
 import { DB_CONFIG_TOKEN } from './constants';
 import * as mongoose from 'mongoose';
 

@@ -18,11 +18,11 @@ import {
     FileInterceptor,
     Logger,
 } from '@nestjs/common';
-import { apiPath } from 'common/api';
+import { apiPath } from '../common/api';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile, ApiImplicitHeader } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { UserDto } from 'dto/user.dto';
-import { RegistrationDto } from 'dto/registration.dto';
+import { UserDto } from '../dto/user.dto';
+import { RegistrationDto } from '../dto/registration.dto';
 
 @ApiUseTags('Manage Registration & Users')
 @Controller(apiPath(1, 'users'))
