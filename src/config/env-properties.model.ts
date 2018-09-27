@@ -2,6 +2,7 @@ export interface EnvProperties {
     server: {
         host?: string;
         port: number;
+        clusterMode: boolean;
     };
     db: {
       host: string;

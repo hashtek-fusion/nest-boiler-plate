@@ -1,20 +1,24 @@
 {
-    "server": {
-        "port": 5000
-    },
-    "db": {
-      "host": "127.0.0.1",
-      "port": 3306,
-      "dbuser": "tsmean",
-      "dbpassword": "mean1234",      
-      "dbname": "ts_mean_prod",
-      "testsMayDropDb": "true"
-    },
-    "cors": {
-      "origin": ["http://localhost:4200"]
-    },
-    "token": {
-      "secret": "tsmean_prod"
-    }
+  "server": {
+    "port": 3000,
+    "clusterMode": false
+  },
+  "db": {
+    "host": "localhost",
+    "port": 27017,
+    "dbuser": "nestadmin",
+    "dbpassword": "nestadmin123",
+    "dbname": "nest-bp-dev"
+  },
+  "cors": {
+    "origin": [
+      "http://localhost:4200"
+    ]
+  },
+  "token": {
+    "secret": "nestboilerplate"
+  },
+  "multer": {
+    "dest": "./uploads"
   }
-  
+}
