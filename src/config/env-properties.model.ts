@@ -17,7 +17,7 @@ export interface EnvProperties {
     jwtToken: {
       secret: string;
       algorithm?: string;
-      expiresIn?: string;
+      expiresIn?: number | string;
     };
     multer: {
       dest: string;

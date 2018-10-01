@@ -21,12 +21,12 @@ async function bootstrap() {
   // Set helmet,csurf middlewares to protect against security vulnerabilities
   app.use(helmet());
   app.use(cookieParser()); // Cookie parser or session should get initialized first to use csrf module
-  app.use(csurf({ cookie: true }));
+  // app.use(csurf({ cookie: true }));
 
   // set path to send CSRF token to pass in subsequent requests from client TO-DO:: will be changed later and set via login sucess path
   app.use('/api/csrf', (req, res) => {
     const token = req.csrfToken();
-    // res.cookie('X-CSRF-TOKEN', token);
+    res.cookie('X-CSRF-TOKEN', token);
     res.json({ csrfToken: token });
   });
 
@@ -46,7 +46,8 @@ async function bootstrap() {
     .setDescription('REST APIs to manage an application')
     .setVersion('1.0')
     .addBearerAuth()
-    .addTag('Manage Registration & Users')
+    .addTag('Authentication & Registration')
+    .addTag('Manage Users')
     .addTag('Manage Notifications')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);

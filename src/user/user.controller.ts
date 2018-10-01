@@ -17,57 +17,20 @@ import {
     UploadedFile,
     FileInterceptor,
     Logger,
+    UseGuards,
 } from '@nestjs/common';
 import { apiPath } from '../common/api';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile, ApiImplicitHeader } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { UserDto } from '../dto/user.dto';
-import { RegistrationDto } from '../dto/registration.dto';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
 
-@ApiUseTags('Manage Registration & Users')
+@ApiUseTags('Manage Users')
 @Controller(apiPath(1, 'users'))
+@UseGuards(RolesGuard)
 export class UserController {
     constructor(private readonly userService: UserService) { }
-
-    @ApiOperation({ title: 'Register a new user in the system' })
-    @ApiResponse({
-        status: 200,
-        description: 'User Registered Successfully and returning user',
-        type: RegistrationDto,
-    })
-    @ApiResponse({
-        status: 400,
-        description: 'Invalid Input and not able to register the user',
-    })
-    @ApiImplicitHeader({name: 'X-CSRF-TOKEN', required: true})
-    @Post('/register')
-    async registerUser(@Body() reqBody: RegistrationDto) {
-        try {
-            return await this.userService.registerUser(reqBody);
-        } catch (err) {
-            throw new InternalServerErrorException(err.message);
-        }
-    }
-
-    @ApiOperation({ title: 'Login to System to access protected resources' })
-    @ApiResponse({
-        status: 200,
-        description: 'JWT Token returned to manage the client session',
-        type: UserDto,
-    })
-    @ApiResponse({
-        status: 400,
-        description: 'Invalid Input and not able to login',
-    })
-    @ApiResponse({
-        status: 500,
-        description: 'Unexpected Server error',
-    })
-    @Post('/login')
-    login(@Body() reqBody: UserDto){
-
-    }
-
     @ApiOperation({ title: 'Registered user upload and manage profile picture' })
     @ApiResponse({
         status: 200,
@@ -85,6 +48,9 @@ export class UserController {
     @UseInterceptors(FileInterceptor('file', {}))
     @ApiConsumes('multipart/form-data')
     @ApiImplicitFile({name: 'file', required: true})
+    // @ApiImplicitHeader({name: 'X-CSRF-TOKEN', required: true})
+    @ApiBearerAuth()
+    @Roles()
     @Post('upload/profilePicture')
     uploadProfilePicture(@UploadedFile() file){
         Logger.log(file.size);
@@ -99,6 +65,8 @@ export class UserController {
         status: 500,
         description: 'Unexpected Server error',
     })
+    @Roles('admin', 'viewer')
+    @ApiBearerAuth()
     @Get()
     async listRegisterdUsers() {
         return await this.userService.listRegisteredUsers();
