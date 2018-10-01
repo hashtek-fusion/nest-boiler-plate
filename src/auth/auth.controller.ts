@@ -2,8 +2,6 @@ import {
     BadRequestException,
     Body,
     Controller,
-    Delete,
-    ForbiddenException,
     Get,
     InternalServerErrorException,
     NotFoundException,
@@ -14,13 +12,10 @@ import {
     Put,
     Query,
     UseInterceptors,
-    UploadedFile,
-    FileInterceptor,
     Logger,
-    UseGuards,
 } from '@nestjs/common';
 import { apiPath } from '../common/api';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile, ApiImplicitHeader } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { RegistrationDto } from '../dto/registration.dto';
