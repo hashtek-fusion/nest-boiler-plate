@@ -22,4 +22,9 @@ export interface EnvProperties {
     multer: {
       dest: string;
     };
+    linkedin: {
+      clientId: string;
+      clientSecret: string;
+      callbackUrl: string;
+    };
   }

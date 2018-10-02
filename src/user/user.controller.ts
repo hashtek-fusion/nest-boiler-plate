@@ -65,7 +65,7 @@ export class UserController {
         status: 500,
         description: 'Unexpected Server error',
     })
-    @Roles('admin', 'viewer')
+    @Roles('viewer', 'admin')
     @ApiBearerAuth()
     @Get()
     async listRegisterdUsers() {

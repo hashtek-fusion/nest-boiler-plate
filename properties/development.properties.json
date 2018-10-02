@@ -22,5 +22,10 @@
   },
   "multer": {
     "dest": "./uploads"
+  },
+  "linkedin": {
+    "clientId": "",
+    "clientSecret": "",
+    "callbackUrl": ""
   }
 }
