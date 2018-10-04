@@ -67,7 +67,7 @@ async function bootstrap() {
       cluster.fork();
     }
   } else {
-    await app.listen(props.server.port);
+    await app.listen(props.server.port || 3000);
   }
 }
 bootstrap();
