@@ -29,9 +29,8 @@ import { NotificationService } from './notification.service';
 import { NotificationManageDto } from '../dto/notification.update.dto';
 
 @ApiUseTags('Manage Notifications')
-@Controller(apiPath(1, 'notifications'))
 @UseGuards(RolesGuard)
-@Controller(apiPath(1, 'users'))
+@Controller(apiPath(1, 'notifications'))
 export class NotificationController {
     constructor(private readonly notificationService: NotificationService){}
 

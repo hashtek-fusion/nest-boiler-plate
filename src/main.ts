@@ -49,6 +49,7 @@ async function bootstrap() {
     .addTag('Authentication & Registration')
     .addTag('Manage Users')
     .addTag('Manage Notifications')
+    .addTag('Manage Payments')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);
   // Swagger setup by providing api route
