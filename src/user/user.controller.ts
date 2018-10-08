@@ -50,13 +50,13 @@ export class UserController {
     @ApiImplicitFile({name: 'file', required: true})
     // @ApiImplicitHeader({name: 'X-CSRF-TOKEN', required: true})
     @ApiBearerAuth()
-    @Roles()
+    @Roles('viewer')
     @Post('upload/profilePicture')
     uploadProfilePicture(@UploadedFile() file){
         Logger.log(file.size);
     }
 
-    @ApiOperation({ title: 'To retrieve all the registered users from the system' })
+    @ApiOperation({ title: 'Admin User to retrieve all the registered users from the system to manage' })
     @ApiResponse({
         status: 200,
         description: 'List of registered users returned to client',
@@ -65,7 +65,7 @@ export class UserController {
         status: 500,
         description: 'Unexpected Server error',
     })
-    @Roles('viewer', 'admin')
+    @Roles('admin')
     @ApiBearerAuth()
     @Get()
     async listRegisterdUsers() {

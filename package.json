@@ -31,6 +31,7 @@
     "@types/csurf": "^1.9.35",
     "@types/helmet": "0.0.42",
     "@types/passport-jwt": "^3.0.1",
+    "@types/underscore": "^1.8.9",
     "body-parser": "^1.18.3",
     "class-transformer": "^0.1.9",
     "class-validator": "^0.9.1",
@@ -46,7 +47,8 @@
     "passport-oauth": "^1.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
     "@nestjs/testing": "^5.1.0",
