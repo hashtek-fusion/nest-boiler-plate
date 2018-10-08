@@ -24,9 +24,9 @@ import { apiPath } from '../common/api';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile } from '@nestjs/swagger';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
-import { NotificationDto } from 'dto/notification.dto';
+import { NotificationDto } from '../dto/notification.dto';
 import { NotificationService } from './notification.service';
-import { NotificationManageDto } from 'dto/notification.update.dto';
+import { NotificationManageDto } from '../dto/notification.update.dto';
 
 @ApiUseTags('Manage Notifications')
 @Controller(apiPath(1, 'notifications'))
