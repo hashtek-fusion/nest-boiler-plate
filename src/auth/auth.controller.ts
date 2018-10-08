@@ -22,8 +22,7 @@ import { RegistrationDto } from '../dto/registration.dto';
 import { LoginDto } from '../dto/login.dto';
 
 @ApiUseTags('Authentication & Registration')
-@Controller(apiPath(1, 'users'))
-@Controller('auth')
+@Controller(apiPath(1, 'auth'))
 export class AuthController {
     constructor(private readonly userService: UserService, private readonly authService: AuthService) { }
     @ApiOperation({ title: 'Register a new user in the system' })
