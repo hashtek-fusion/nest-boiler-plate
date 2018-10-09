@@ -22,9 +22,13 @@ export interface EnvProperties {
     multer: {
       dest: string;
     };
-    linkedin: {
+    oauth: {
       clientId: string;
+      domain: string;
       clientSecret: string;
+      tokenUrl: string;
       callbackUrl: string;
+      audience: string;
+      grantType: string;
     };
   }

@@ -81,4 +81,22 @@ export class AuthController {
          const token = this.authService.createToken(payload);
          return {token};
     }
+
+    @ApiOperation({ title: 'Retreive auth0 token for a user' })
+    @ApiResponse({
+        status: 200,
+        description: 'Autho0 token retrieved and send to consuming client',
+    })
+    @ApiResponse({
+        status: 500,
+        description: 'unexpected server error',
+    })
+    @Get('login/auth0')
+    async auth0login(){
+        try {
+            return await this.authService.getAuth0Token();
+        } catch (err) {
+            throw new InternalServerErrorException(err.message);
+        }
+    }
 }
