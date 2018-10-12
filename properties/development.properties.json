@@ -31,5 +31,12 @@
     "callbackUrl": "http://localhost:3000/api/v1/auth/login/auth0",
     "audience": "http://localhost:3000/api",
     "grantType": "client_credentials"
+  },
+  "paypal": {
+    "clientId": "ASKkPvBE3VlSUeYDnpBbrHFAhTuDXlWLV5g5ZUkGZTUMSQMtNI-4gOsZXwIjqvf8lM99L5MA1AbYXGrj",
+    "clientSecret": "EMaUjAwLi76bZkIuKPRX_7KvWPWKMJ0GEw5oQDwxkg3VdpNbsvU3YLUxinY4WOW9ZF81WX66E1vTBFOp",
+    "grantType": "client_credentials",
+    "baseUrl": "https://api.sandbox.paypal.com/v1",
+    "mode": "sandbox"
   }
 }

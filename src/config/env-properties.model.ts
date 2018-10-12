@@ -31,4 +31,11 @@ export interface EnvProperties {
       audience: string;
       grantType: string;
     };
+    paypal: {
+      mode: string;
+      clientId: string;
+      clientSecret: string;
+      grantType?: string;
+      baseUrl?: string;
+    };
   }
