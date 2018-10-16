@@ -21,7 +21,7 @@
     "expiresIn": "1d"
   },
   "multer": {
-    "dest": "./uploads"
+    "dest": "./uploads/profile"
   },  
   "oauth":{
     "clientId": "lh4ws7xdSc2LGPvtWhGoTHk6fw7LGOPM",

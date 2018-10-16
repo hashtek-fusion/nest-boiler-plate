@@ -79,7 +79,7 @@ export class AuthController {
             roles: user.roles,
          };
          const token = this.authService.createToken(payload);
-         return {token};
+         return { user, token};
     }
 
     @ApiOperation({ title: 'Retreive auth0 token for a user' })

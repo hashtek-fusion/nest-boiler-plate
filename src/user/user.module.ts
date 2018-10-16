@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module, MulterModule } from '@nestjs/common';
 import { userProviders } from './user.providers';
 import { DatabaseModule } from '../database/database.module';
 import { UserService } from './user.service';

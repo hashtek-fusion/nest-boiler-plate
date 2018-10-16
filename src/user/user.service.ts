@@ -1,9 +1,13 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger, UploadedFile } from '@nestjs/common';
 import { USER_REPOSITORY_TOKEN } from './constants';
 import { Model } from 'mongoose';
 import { IUser } from './user.interface';
-import { RegistrationDto } from 'dto/registration.dto';
+import { RegistrationDto } from '../dto/registration.dto';
 import * as crypto from 'crypto';
+import { UserProfileDto } from '../dto/user.profile.dto';
+import * as _ from 'underscore';
+import { UserDto } from 'dto/user.dto';
+import * as fs from 'fs';
 
 @Injectable()
 export class UserService {
@@ -33,5 +37,39 @@ export class UserService {
 
     hashPassword(salt: string, plainPassword: string): string {
         return crypto.pbkdf2Sync(plainPassword, new Buffer(salt, 'base64'), 10000, 64, 'SHA1').toString('base64');
+    }
+
+    async updateUserProfile(userId: string, profileDto: UserProfileDto): Promise<IUser> {
+        let user = await this.userModel.findById(userId);
+        user.updatedOn = new Date();
+        // Merge the user object with updated profile information
+        user = _.extend(user, profileDto);
+        return await user.save();
+    }
+
+    async manageUserProfile(userId: string, userDto: UserDto){
+        let user = await this.userModel.findById(userId);
+        user.updatedOn = new Date();
+        // Merge the user object with updated profile information
+        user = _.extend(user, userDto);
+        return await user.save();
+    }
+
+    async uploadProfilePicture(userId: string, @UploadedFile() file): Promise<any>{
+       const path = `${file.destination}/default.jpg`;
+       return await new Promise((resolve, reject) => {
+            fs.writeFile(path, file.buffer, (error) => {
+                if (!error) {
+                    this.userModel.findById(userId)
+                        .then((user) => {
+                            user.profileImageURL = file.path;
+                            resolve(user.save());
+                        })
+                        .catch((err) => reject(err));
+                } else {
+                    reject(error);
+                }
+            });
+        });
     }
 }

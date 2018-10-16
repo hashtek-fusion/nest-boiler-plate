@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigModule } from './config/config.module';
 import { EnvProperties } from './config/env-properties.model';
 import { ENV_CONFIG_TOKEN } from './config/constants';
-import { MulterModule, Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';
 import * as cookieParser from 'cookie-parser';
@@ -32,13 +32,6 @@ async function bootstrap() {
 
   // read environment properties file
   const props: EnvProperties = app.select(ConfigModule).get(ENV_CONFIG_TOKEN);
-
-  // Register Multer Module to support File Uploads
-  MulterModule.registerAsync({
-    useFactory: () => ({
-      dest: props.multer.dest,
-    }),
-  });
 
   // set swagger options
   const swaggerOptions = new DocumentBuilder()
