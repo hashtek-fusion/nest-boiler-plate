@@ -8,6 +8,7 @@ import { UserProfileDto } from '../dto/user.profile.dto';
 import * as _ from 'underscore';
 import { UserDto } from 'dto/user.dto';
 import * as fs from 'fs';
+import { UserPasswordDto } from 'dto/user.password.dto';
 
 @Injectable()
 export class UserService {
@@ -32,7 +33,7 @@ export class UserService {
     }
 
     async findUserByEmail(userEmail: string): Promise<IUser> {
-        return await this.userModel.findOne({email: userEmail}).exec();
+        return await this.userModel.findOne({'email': userEmail, 'status.key': 'ACTIVE'}).exec();
     }
 
     hashPassword(salt: string, plainPassword: string): string {
@@ -71,5 +72,18 @@ export class UserService {
                 }
             });
         });
+    }
+
+    async validateAndUpdatePassword(userId: string, passwordDto: UserPasswordDto): Promise<IUser> {
+        const user = await this.userModel.findById(userId);
+        const hashPassword = this.hashPassword(user.salt, passwordDto.oldPassword);
+        if (!user || user.password !== hashPassword){
+           throw new Error('Incorrect old password!');
+        }
+        const newSalt = crypto.randomBytes(16).toString('base64');
+        const newHash = this.hashPassword(newSalt, passwordDto.newPassword);
+        user.salt = newSalt;
+        user.password = newHash;
+        return await user.save();
     }
 }
