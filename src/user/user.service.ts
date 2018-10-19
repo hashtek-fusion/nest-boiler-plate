@@ -6,9 +6,9 @@ import { RegistrationDto } from '../dto/registration.dto';
 import * as crypto from 'crypto';
 import { UserProfileDto } from '../dto/user.profile.dto';
 import * as _ from 'underscore';
-import { UserDto } from 'dto/user.dto';
+import { UserDto } from '../dto/user.dto';
 import * as fs from 'fs';
-import { UserPasswordDto } from 'dto/user.password.dto';
+import { UserPasswordDto } from '../dto/user.password.dto';
 
 @Injectable()
 export class UserService {

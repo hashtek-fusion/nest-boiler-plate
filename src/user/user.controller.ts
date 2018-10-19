@@ -28,7 +28,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserProfileDto } from '../dto/user.profile.dto';
 import { MulterCustomConfigForProfile } from '../config/multer.custom.config';
-import { UserPasswordDto } from 'dto/user.password.dto';
+import { UserPasswordDto } from '../dto/user.password.dto';
 
 @ApiUseTags('Manage Users')
 @Controller(apiPath(1, 'users'))
