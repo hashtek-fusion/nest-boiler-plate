@@ -33,6 +33,9 @@ async function bootstrap() {
   // read environment properties file
   const props: EnvProperties = app.select(ConfigModule).get(ENV_CONFIG_TOKEN);
 
+  // Enable Cors to allow client to consume API end points
+  app.enableCors(props.cors);
+
   // set swagger options
   const swaggerOptions = new DocumentBuilder()
     .setTitle('Nest JS Boiler Plate Code')
