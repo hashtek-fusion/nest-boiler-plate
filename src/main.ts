@@ -11,6 +11,7 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as cluster from 'cluster';
 import * as os from 'os';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,10 +19,15 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({
     extended: true,
   }));
+
   // Set helmet,csurf middlewares to protect against security vulnerabilities
   app.use(helmet());
   app.use(cookieParser()); // Cookie parser or session should get initialized first to use csrf module
   // app.use(csurf({ cookie: true }));
+
+  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setViewEngine('hbs');
 
   // set path to send CSRF token to pass in subsequent requests from client TO-DO:: will be changed later and set via login sucess path
   app.use('/api/csrf', (req, res) => {

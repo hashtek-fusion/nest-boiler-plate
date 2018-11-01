@@ -19,6 +19,7 @@ import {
     UseGuards,
     Req,
     FileInterceptor,
+    Res,
 } from '@nestjs/common';
 import { apiPath } from '../common/api';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags, ApiConsumes, ApiImplicitFile } from '@nestjs/swagger';
@@ -29,6 +30,8 @@ import { Roles } from '../auth/roles.decorator';
 import { UserProfileDto } from '../dto/user.profile.dto';
 import { MulterCustomConfigForProfile } from '../config/multer.custom.config';
 import { UserPasswordDto } from '../dto/user.password.dto';
+import { Response } from 'express-serve-static-core';
+import { join } from 'path';
 
 @ApiUseTags('Manage Users')
 @Controller(apiPath(1, 'users'))
@@ -67,6 +70,24 @@ export class UserController {
         } catch (err) {
             throw new InternalServerErrorException(err.message);
         }
+    }
+
+    @ApiOperation({ title: 'Registered user to get their profile picture rendered in browser' })
+    @ApiResponse({
+        status: 200,
+        description: 'Profile Picture returned successfully for authorized user',
+    })
+    @ApiResponse({
+        status: 500,
+        description: 'Unexpected Server error',
+    })
+    @ApiBearerAuth()
+    @Roles('viewer')
+    @Get('profile/picture')
+    getProfilePicture(@Req() req: any, @Res() res: Response) {
+        let picturePath = `/${req.user.profileImageURL}`;
+        picturePath = join(__dirname, '..', '..', picturePath);
+        res.sendFile(picturePath);
     }
 
     @ApiOperation({ title: 'Registered user can manage their profile' })
