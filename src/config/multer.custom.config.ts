@@ -19,7 +19,7 @@ export const MulterCustomConfigForProfile = {
         }
     },
     limits: {
-        fileSize: 1024 * 1024,
+        fileSize: 1024 * 1024 * 10,
         files: 10,
     },
 };
