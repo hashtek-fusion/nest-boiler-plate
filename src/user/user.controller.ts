@@ -84,10 +84,15 @@ export class UserController {
     @ApiBearerAuth()
     @Roles('viewer')
     @Get('profile/picture')
-    getProfilePicture(@Req() req: any, @Res() res: Response) {
+    getProfilePicture(@Req() req: any) {
         let picturePath = `/${req.user.profileImageURL}`;
         picturePath = join(__dirname, '..', '..', picturePath);
-        res.sendFile(picturePath);
+        try{
+            const base64Str = this.userService.getProfilePicture(picturePath);
+            return {img: base64Str};
+        }catch (err){
+            throw new InternalServerErrorException(err.message);
+        }
     }
 
     @ApiOperation({ title: 'Registered user can manage their profile' })

@@ -74,6 +74,13 @@ export class UserService {
         });
     }
 
+    getProfilePicture(path: string): string {
+        const fileBuffer = fs.readFileSync(path);
+        let base64Str = new Buffer(fileBuffer).toString('base64');
+        base64Str = 'data:image/jpeg;charset=utf-8;base64,' + base64Str;
+        return base64Str;
+    }
+
     async validateAndUpdatePassword(userId: string, passwordDto: UserPasswordDto): Promise<IUser> {
         const user = await this.userModel.findById(userId);
         const hashPassword = this.hashPassword(user.salt, passwordDto.oldPassword);
