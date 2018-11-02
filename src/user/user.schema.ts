@@ -30,7 +30,7 @@ export const UserSchema = new mongoose.Schema({
     },
     profileImageURL: {
         type: String,
-        default: 'modules/users/img/profile/default.png',
+        default: '/uploads/profile/avatar.png',
     },
     roles: {
         type: [{
